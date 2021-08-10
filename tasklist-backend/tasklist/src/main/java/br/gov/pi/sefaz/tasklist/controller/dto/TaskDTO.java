@@ -1,6 +1,7 @@
 package br.gov.pi.sefaz.tasklist.controller.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.springframework.data.domain.Page;
 
@@ -13,7 +14,7 @@ public class TaskDTO {
 	private String title;
 	private String description;
 	private LocalDateTime dateCreation;
-	private LocalDateTime dateConclusion;
+	private Date dateConclusion;
 	private TaskStatus status;
 	
 	
@@ -42,7 +43,7 @@ public class TaskDTO {
 		return dateCreation;
 	}
 
-	public LocalDateTime getDateConclusion() {
+	public Date getDateConclusion() {
 		return dateConclusion;
 	}
 

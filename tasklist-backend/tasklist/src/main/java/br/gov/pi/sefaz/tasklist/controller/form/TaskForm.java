@@ -1,6 +1,7 @@
 package br.gov.pi.sefaz.tasklist.controller.form;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -16,7 +17,7 @@ public class TaskForm {
 	@NotNull @NotBlank @Length(min = 1)
 	private String title;
 	private String description;
-	private LocalDateTime dateConclusion;
+	private Date dateConclusion;
 	private TaskStatus status;
 	
 	
@@ -28,7 +29,7 @@ public class TaskForm {
 		return description;
 	}
 
-	public LocalDateTime getDateConclusion() {
+	public Date getDateConclusion() {
 		return dateConclusion;
 	}
 

@@ -1,6 +1,7 @@
 package br.gov.pi.sefaz.tasklist.model;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,14 +19,14 @@ public class Task {
 	private String title;
 	private String description;
 	private LocalDateTime dateCreation = LocalDateTime.now();
-	private LocalDateTime dateConclusion;
+	private Date dateConclusion;
 	@Enumerated(EnumType.STRING)
 	private TaskStatus status = TaskStatus.ABERTA;
 	
 	
 	public Task() { }
 
-	public Task(String title, String description, LocalDateTime dateConclusion, TaskStatus status) {
+	public Task(String title, String description, Date dateConclusion, TaskStatus status) {
 		this.title = title;
 		this.description = description;
 		this.dateConclusion = dateConclusion;
@@ -89,11 +90,11 @@ public class Task {
 		this.dateCreation = dateCreation;
 	}
 
-	public LocalDateTime getDateConclusion() {
+	public Date getDateConclusion() {
 		return dateConclusion;
 	}
 
-	public void setDateConclusion(LocalDateTime dateConclusion) {
+	public void setDateConclusion(Date dateConclusion) {
 		this.dateConclusion = dateConclusion;
 	}
 

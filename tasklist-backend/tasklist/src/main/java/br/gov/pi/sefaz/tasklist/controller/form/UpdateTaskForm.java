@@ -1,6 +1,7 @@
 package br.gov.pi.sefaz.tasklist.controller.form;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import br.gov.pi.sefaz.tasklist.model.Task;
 import br.gov.pi.sefaz.tasklist.model.TaskStatus;
@@ -10,7 +11,7 @@ public class UpdateTaskForm {
 	
 	private String title;
 	private String description;
-	private LocalDateTime dateConclusion;
+	private Date dateConclusion;
 	private TaskStatus status;
 	
 	
@@ -23,7 +24,7 @@ public class UpdateTaskForm {
 	}
 
 
-	public LocalDateTime getDateConclusion() {
+	public Date getDateConclusion() {
 		return dateConclusion;
 	}
 
