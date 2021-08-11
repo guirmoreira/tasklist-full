@@ -2,8 +2,8 @@ import { http } from './config'
 
 export default {
 
-    listTasks:(page, amt, order) => {
-        return http.get('tasks?page='+page+'&amt='+amt+'&oder='+order)
+    listTasks:(page, amt, sort, dir) => {
+        return http.get('tasks?page='+page+'&amt='+amt+'&sort='+sort+'&dir='+dir)
     },
 
     deleteTask:(id) => {

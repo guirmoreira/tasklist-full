@@ -17,4 +17,3 @@ INSERT INTO TASK(title, description, date_creation, date_conclusion, status) VAL
 INSERT INTO TASK(title, description, date_creation, date_conclusion, status) VALUES('Tarefa Teste 18', 'Descrição', '2019-05-05 20:00:00', '2019-06-30', 'EM_ANDAMENTO');
 INSERT INTO TASK(title, description, date_creation, date_conclusion, status) VALUES('Tarefa Teste 19', 'Descrição', '2019-05-05 20:00:00', '2019-06-30', 'EM_ANDAMENTO');
 INSERT INTO TASK(title, description, date_creation, date_conclusion, status) VALUES('Tarefa Teste 20', 'Descrição', '2019-05-05 20:00:00', '2019-06-30', 'EM_ANDAMENTO');
-

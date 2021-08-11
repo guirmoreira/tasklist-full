@@ -18,41 +18,61 @@
       </v-card-title>
 
       <v-card-text>
-        <v-row>
-          <v-col cols="8">
+        <v-text-field
+          label="Título"
+          v-model="task.title"
+          filled
+          dense
+          clearable
+          required
+          maxlength="64"
+        ></v-text-field>
+        <v-text-field
+          label="Descrição"
+          v-model="task.description"
+          filled
+          dense
+          clearable
+          required
+          maxlength="256"
+        >
+          <template v-slot:label>
+            <div>Descrição <small>(opcional)</small></div>
+          </template>
+        </v-text-field>
+        <v-select
+          label="Status"
+          v-model="task.status"
+          :items="items"
+          filled
+        ></v-select>
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :return-value.sync="date"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
             <v-text-field
-              label="Título"
-              v-model="task.title"
-              filled
-              dense
-              clearable
-              required
-              maxlength="64"
+              v-model="date"
+              label="Data de Entrega"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
             ></v-text-field>
-            <v-text-field
-              label="Descrição"
-              v-model="task.description"
-              filled
-              dense
-              clearable
-              required
-              maxlength="256"
-            >
-              <template v-slot:label>
-                <div>Descrição <small>(opcional)</small></div>
-              </template>
-            </v-text-field>
-            <v-select
-              label="Status"
-              v-model="task.status"
-              :items="items"
-              filled
-            ></v-select>
-          </v-col>
-          <v-col cols="4">
-            <v-date-picker v-model="picker"></v-date-picker>
-          </v-col>
-        </v-row>
+          </template>
+          <v-date-picker v-model="picker" no-title scrollable>
+            <v-spacer></v-spacer>
+            <v-btn text color="primary" @click="menu = false"> Cancelar </v-btn>
+            <v-btn text color="primary" @click="$refs.menu.save(date)">
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
       </v-card-text>
 
       <v-card-actions>
@@ -70,7 +90,7 @@
 <script>
 import tasks from "../../services/tasks";
 export default {
-  props: [ 'updateList' ],
+  props: ["updateList"],
 
   data: () => ({
     dialog: false,
@@ -81,14 +101,17 @@ export default {
       dateConclusion: "",
     },
     items: ["ABERTA", "EM_ANDAMENTO", "CONCLUÍDA"],
-    picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .substr(0, 10),
+    picker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+    date: "",
+    menu: false,
+    modal: false,
+    menu2: false,
   }),
 
   watch: {
     picker() {
       this.task.dateConclusion = this.picker;
+      this.date = this.formatDate(this.picker);
     },
   },
 
@@ -100,6 +123,10 @@ export default {
       });
       this.dialog = false;
     },
+    formatDate(picker) {
+      const [year, month, day] = picker.split("-");
+      return `${day}/${month}/${year}`;
+    }
   },
 };
 </script>

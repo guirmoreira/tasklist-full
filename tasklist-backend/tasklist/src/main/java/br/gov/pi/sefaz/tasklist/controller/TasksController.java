@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -47,9 +48,18 @@ public class TasksController {
 	@CrossOrigin(origins = "http://localhost:8081")
 	public Page<TaskDTO> lista( 
 			@RequestParam int page, 
-			@RequestParam int amt) {
+			@RequestParam int amt,
+			@RequestParam String sort, 
+			@RequestParam String dir) {
 		
-		Pageable pageable = PageRequest.of(page, amt, Sort.by("id").descending());
+		Pageable pageable;
+		
+		if (dir.equals("ASC")) {
+			pageable = PageRequest.of(page, amt, Sort.Direction.ASC, sort);
+		}
+		else {
+			pageable = PageRequest.of(page, amt, Sort.Direction.DESC, sort);
+		}
 		
 		Page<Task> tasks = taskRepository.findAll(pageable);
 		return TaskDTO.convert(tasks);
