@@ -12,32 +12,37 @@
       tile
       extended
       extension-height="36"
+      elevation="2"
       class="rounded-b-lg pl-2 pt-8"
       color="blue-grey darken-2">
-      <v-toolbar-title class="white--text headline font-weight-light">
-        Lista de Tarefas
+      <v-spacer></v-spacer>
+      <v-toolbar-title class="white--text text-h4 font-weight-medium">
+        <p class="text-xs-center">Lista de Tarefas</p>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <PopupNewTask />
- 
     </v-toolbar>
 
     <v-card flat class="pa-2 mt-4 mx-1" >
-      <Dashboard />
+      <Dashboard 
+        :update="updateList"/>
     </v-card>
   </v-card>
-
 
 </template>
 
 <script>
-  import PopupNewTask from '../components/popups/PopupNewTask.vue'
   import Dashboard from './Dashboard.vue'
 
   export default {
-    components: { PopupNewTask , Dashboard },
+
+    data: () => ({
+      updateList: false,
+    }),
+
+    components: { Dashboard },
+
 
   }
 </script>

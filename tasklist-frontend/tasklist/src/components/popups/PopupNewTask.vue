@@ -70,6 +70,8 @@
 <script>
 import tasks from "../../services/tasks";
 export default {
+  props: [ 'updateList' ],
+
   data: () => ({
     dialog: false,
     task: {
@@ -78,7 +80,7 @@ export default {
       status: "",
       dateConclusion: "",
     },
-    items: ["ABERTA", "EM_ANDAMENTO", "CONCLUIDA"],
+    items: ["ABERTA", "EM_ANDAMENTO", "CONCLUÍDA"],
     picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
@@ -92,11 +94,11 @@ export default {
 
   methods: {
     saveTask() {
-      tasks.createTask(this.task).then((response) => {
-        alert(response);
-      }),
-        (this.dialog = false), 
-        this.$forceUpdate;
+      tasks.createTask(this.task).then(() => {
+        this.$parent.list();
+        this.$parent.$forceUpdate;
+      });
+      this.dialog = false;
     },
   },
 };
