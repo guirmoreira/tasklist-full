@@ -57,7 +57,7 @@
         >
           <template v-slot:activator="{ on, attrs }">
             <v-text-field
-              v-model="date"
+              v-model="task.dateConclusion"
               label="Data de Entrega"
               prepend-icon="mdi-calendar"
               readonly
@@ -76,12 +76,12 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="red darken-1" text @click="dialog = false">
+        <v-btn color="red darken-1" text @click=closePopup>
           Cancelar
         </v-btn>
 
         <v-spacer></v-spacer>
-        <v-btn color="green darken-1" text @click="saveTask"> Salvar </v-btn>
+        <v-btn color="green darken-1" text @click=saveTask> Salvar </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -95,10 +95,10 @@ export default {
   data: () => ({
     dialog: false,
     task: {
-      title: this.$props.parentTask.title,
-      description: this.$props.parentTask.description,
-      status: this.$props.parentTask.status,
-      dateConclusion: this.$props.parentTask.dateConclusion,
+      title:"",
+      description: "",
+      status: "",
+      dateConclusion: "",
     },
     items: ["ABERTA", "EM_ANDAMENTO", "CONCLUÍDA"],
     picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
@@ -113,8 +113,12 @@ export default {
   watch: {
     picker() {
       this.task.dateConclusion = this.picker;
-      this.date = this.formatDate(this.picker);
+      this.date = this.formatDatePicker(this.picker);
     },
+  },
+
+  mounted() {
+    this.populateTask();
   },
 
   methods: {
@@ -125,10 +129,26 @@ export default {
       });
       this.dialog = false;
     },
-    formatDate(picker) {
+    formatDatePicker(picker) {
       const [year, month, day] = picker.split("-");
       return `${day}/${month}/${year}`;
     },
+    formatDate(date) {
+      if (!date) return null;
+      const [dayOfMonth] = date.split("T");
+      const [year, month, day] = dayOfMonth.split("-");
+      return `${day}/${month}/${year}`;
+    },
+    populateTask() {
+      this.task.title = this.$props.parentTask.title;
+      this.task.description = this.$props.parentTask.description;
+      this.task.status = this.$props.parentTask.status;
+      this.task.dateConclusion = this.formatDate(this.$props.parentTask.dateConclusion);
+    },
+    closePopup() {
+      this.dialog = false;
+      this.populateTask();
+    }
   },
 };
 </script>

@@ -29,17 +29,17 @@
         </v-col>
         <v-col cols="2" class="ma-auto" align="center">
           <v-card flat color="blue-grey lighten-5" class="rounded-pill">
-            <v-card-text> Status </v-card-text>
+            <v-card-text class="black--text font-weight-bold"> Status </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="2" class="ma-auto" align="center">
           <v-card flat color="blue-grey lighten-5" class="rounded-pill">
-            <v-card-text> Data de Entrega </v-card-text>
+            <v-card-text class="black--text font-weight-bold"> Data de Entrega </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="1" class="ma-auto" align="center">
           <v-card flat color="blue-grey lighten-5" class="rounded-pill">
-            <v-card-text> Ações </v-card-text>
+            <v-card-text class="black--text font-weight-bold"> Ações </v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -143,7 +143,7 @@ export default {
       ],
       selected: { name: "5 resultados", value: 5 },
       selectedOrder: { name: "Último adicionado", value: "id-DESC" },
-      totalPages: 10,
+      totalPages: 1,
     };
   },
 

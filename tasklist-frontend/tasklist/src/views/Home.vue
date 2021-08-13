@@ -14,7 +14,7 @@
       extension-height="36"
       elevation="2"
       class="rounded-b-lg pl-2 pt-8"
-      color="blue-grey darken-2">
+      color="blue-grey darken-4">
       <v-spacer></v-spacer>
       <v-toolbar-title class="white--text text-h4 font-weight-medium">
         <p class="text-xs-center">Lista de Tarefas</p>
@@ -25,8 +25,7 @@
     </v-toolbar>
 
     <v-card flat class="pa-2 mt-4 mx-1" >
-      <Dashboard 
-        :update="updateList"/>
+      <Dashboard />
     </v-card>
   </v-card>
 
@@ -36,13 +35,6 @@
   import Dashboard from './Dashboard.vue'
 
   export default {
-
-    data: () => ({
-      updateList: false,
-    }),
-
     components: { Dashboard },
-
-
   }
 </script>
