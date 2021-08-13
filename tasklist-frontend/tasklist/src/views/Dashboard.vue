@@ -14,7 +14,7 @@
         ></v-select>
       </v-col>
       <v-spacer />
-      <v-col cols="2" align="right">
+      <v-col cols="2" align="right" class="mt-2">
         <PopupNewTask />
       </v-col>
     </v-row>
@@ -207,6 +207,7 @@ export default {
       Tasks.listTasks(this.page - 1, this.selected.value, sort, dir, this.filterStatus).then(
         (response) => {
           this.tasks = response.data.content;
+          console.log(this.tasks);
           this.totalPages = response.data.totalPages;
           this.$forceUpdate;
         }

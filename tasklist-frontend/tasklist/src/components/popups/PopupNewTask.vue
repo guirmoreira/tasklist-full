@@ -7,6 +7,7 @@
         slot="activation"
         v-bind="attrs"
         v-on="on"
+        large
       >
         Nova Tarefa
       </v-btn>

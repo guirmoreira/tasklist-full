@@ -1,6 +1,7 @@
 package br.gov.pi.sefaz.tasklist.controller;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -66,6 +67,7 @@ public class TasksController {
 		} else {
 			tasks = taskRepository.findAll(pageable);
 		}
+
 		return TaskDTO.convert(tasks);
 	}
 	
