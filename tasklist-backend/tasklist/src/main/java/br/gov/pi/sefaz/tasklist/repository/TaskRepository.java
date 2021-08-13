@@ -5,8 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.gov.pi.sefaz.tasklist.model.Task;
+import br.gov.pi.sefaz.tasklist.model.TaskStatus;
 
 public interface TaskRepository extends JpaRepository<Task, Long>{
+
+	Page<Task> findByStatus(TaskStatus status, Pageable pageable);
 	
 	// gera query automaticamente
 	//Page<Task> findByCurso_Nome(String nomeCurso, Pageable pageable);  //ordem de nomes por relacionamento

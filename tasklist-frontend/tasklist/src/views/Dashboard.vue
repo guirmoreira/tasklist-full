@@ -27,19 +27,41 @@
             <v-card-subtitle> Descrição </v-card-subtitle>
           </v-card>
         </v-col>
-        <v-col cols="2" class="ma-auto" align="center">
-          <v-card flat color="blue-grey lighten-5" class="rounded-pill">
-            <v-card-text class="black--text font-weight-bold"> Status </v-card-text>
+        <v-col cols="2" class="" align="center">
+          <v-card flat color="blue-grey lighten-5">
+            <v-card-text class="black--text font-weight-bold">
+              Status
+            </v-card-text>
+            <v-btn-toggle
+              borderless
+              v-model="toggle_none"
+              class="mb-3"
+              background-color="blue-grey darken-4"
+            >
+              <v-btn active-class="aa" class="d" height="40px">
+                <v-icon color="white">mdi-calendar-clock</v-icon>
+              </v-btn>
+              <v-btn active-class="ab" class="d" height="40px">
+                <v-icon color="white">mdi-calendar-arrow-right</v-icon>
+              </v-btn>
+              <v-btn active-class="ac" class="d" height="40px">
+                <v-icon color="white">mdi-calendar-check</v-icon>
+              </v-btn>
+            </v-btn-toggle>
           </v-card>
         </v-col>
         <v-col cols="2" class="ma-auto" align="center">
           <v-card flat color="blue-grey lighten-5" class="rounded-pill">
-            <v-card-text class="black--text font-weight-bold"> Data de Entrega </v-card-text>
+            <v-card-text class="black--text font-weight-bold">
+              Data de Entrega
+            </v-card-text>
           </v-card>
         </v-col>
         <v-col cols="1" class="ma-auto" align="center">
           <v-card flat color="blue-grey lighten-5" class="rounded-pill">
-            <v-card-text class="black--text font-weight-bold"> Ações </v-card-text>
+            <v-card-text class="black--text font-weight-bold">
+              Ações
+            </v-card-text>
           </v-card>
         </v-col>
       </v-row>
@@ -62,6 +84,16 @@
             class="ma-2 white--text"
             :color="getStatusChipColor(task.status)"
           >
+            <v-icon v-if="task.status === 'ABERTA'" left class="px-3"
+              >mdi-calendar-clock</v-icon
+            >
+            <v-icon v-if="task.status === 'CONCLUÍDA'" left class="px-3"
+              >mdi-calendar-check</v-icon
+            >
+            <v-icon v-if="task.status === 'EM_ANDAMENTO'" left class="px-3"
+              >mdi-calendar-arrow-right</v-icon
+            >
+
             {{ getStatusChipText(task.status) }}
           </v-chip>
         </v-col>
@@ -144,11 +176,15 @@ export default {
       selected: { name: "5 resultados", value: 5 },
       selectedOrder: { name: "Último adicionado", value: "id-DESC" },
       totalPages: 1,
+      toggle_none: null,
+      filterStatus: "NONE",
     };
   },
 
   computed: {
     update() {
+      this.handleToogle();
+      console.log(this.filterStatus)
       this.list();
       return [];
     },
@@ -168,7 +204,7 @@ export default {
   methods: {
     list() {
       const [sort, dir] = this.selectedOrder.value.split("-");
-      Tasks.listTasks(this.page - 1, this.selected.value, sort, dir).then(
+      Tasks.listTasks(this.page - 1, this.selected.value, sort, dir, this.filterStatus).then(
         (response) => {
           this.tasks = response.data.content;
           this.totalPages = response.data.totalPages;
@@ -180,7 +216,7 @@ export default {
       if (status == "ABERTA") {
         return "yellow darken-4";
       } else if (status == "EM_ANDAMENTO") {
-        return "primary";
+        return "blue darken-2";
       } else if (status == "CONCLUÍDA") {
         return "green darken-2";
       } else {
@@ -204,9 +240,35 @@ export default {
       const [year, month, day] = dayOfMonth.split("-");
       return `${day}/${month}/${year}`;
     },
+    handleToogle() {
+      if (this.toggle_none == 0) {
+        this.filterStatus = 'ABERTA';
+      } else if (this.toggle_none == 1) {
+        this.filterStatus = 'EM_ANDAMENTO';
+      } else if (this.toggle_none == 2) {
+        this.filterStatus = 'CONCLUÍDA';
+      } else {
+        this.filterStatus = 'NONE';
+      }
+    }
   },
 };
 </script>
 
 <style>
+.d {
+  background: #76979c !important;
+}
+
+.aa {
+  background: #F57F17 !important;
+}
+
+.ab {
+  background: #1976D2 !important;
+}
+
+.ac {
+  background: #388E3C !important;
+}
 </style>

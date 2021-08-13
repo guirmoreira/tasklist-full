@@ -4,6 +4,7 @@ public enum TaskStatus {
 
 	ABERTA,
 	EM_ANDAMENTO,
-	CONCLUÍDA;
+	CONCLUÍDA,
+	NONE;
 
 }
